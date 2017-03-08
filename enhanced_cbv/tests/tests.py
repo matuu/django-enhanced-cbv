@@ -1,14 +1,16 @@
 from datetime import date
 from django.test import TestCase
 from django.core.exceptions import ImproperlyConfigured
+from django.test import override_settings
+
 from enhanced_cbv.views.edit import (FormSetsMixin, ModelFormSetsMixin,  # noqa
         EnhancedModelFormSet, )
 from enhanced_cbv.tests.models import Author, Article
 from enhanced_cbv.tests.filters import AuthorFilterSet
 
 
+@override_settings(ROOT_URLCONF='enhanced_cbv.tests.urls')
 class FormSetsViewTests(TestCase):
-    urls = 'enhanced_cbv.tests.urls'
 
     def setUp(self):
         self.data = {
@@ -65,8 +67,8 @@ class ModelFormSetsTests(TestCase):
         self.assertRaises(ImproperlyConfigured, formset.get_model)
 
 
+@override_settings(ROOT_URLCONF='enhanced_cbv.tests.urls')
 class ModelFormSetsViewTests(TestCase):
-    urls = 'enhanced_cbv.tests.urls'
 
     def setUp(self):
         self.data = {
@@ -121,8 +123,8 @@ class ModelFormSetsViewTests(TestCase):
         self.assertContains(response, 'ERROR')
 
 
+@override_settings(ROOT_URLCONF='enhanced_cbv.tests.urls')
 class InlineFormSetsViewTests(TestCase):
-    urls = 'enhanced_cbv.tests.urls'
 
     def setUp(self):
         self.formsetmgmt = {
@@ -207,8 +209,8 @@ class InlineFormSetsViewTests(TestCase):
         self.assertEqual(response.context['new_object'], False)
 
 
+@override_settings(ROOT_URLCONF='enhanced_cbv.tests.urls')
 class ListFilteredViewTests(TestCase):
-    urls = 'enhanced_cbv.tests.urls'
 
     def setUp(self):
         Author.objects.create(name='Herman Melville')

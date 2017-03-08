@@ -28,3 +28,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 SECRET_KEY = '1'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+    },
+]

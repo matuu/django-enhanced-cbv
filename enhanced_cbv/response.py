@@ -88,11 +88,13 @@ class CSVTemplateResponse(TemplateResponse):
             self.writer_kwargs = {}
 
         if django.VERSION < (1, 8):
-            super(CSVTemplateResponse, self).__init__(request,
-                template, context, content_type, status, using)
+            super(CSVTemplateResponse, self).__init__(
+                request, template, context=context, content_type=content_type, status=status, current_app=current_app)
         else:
-            super(CSVTemplateResponse, self).__init__(request,
-                template, context, content_type, status, charset, using)
+            request.current_app = current_app
+            super(CSVTemplateResponse, self).__init__(
+                request, template, context=context, content_type=content_type, status=status,
+                charset=charset, using=using)
 
     def render(self):
         """This is the tricky part, whith the rendered_content create a CSV"""
